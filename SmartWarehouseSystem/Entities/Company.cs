@@ -13,7 +13,6 @@ namespace SmartWarehouseSystem.API.Entities
         public string CompanyKey { get; set; }
         public ICollection<Product> Products { get; set; }
 
-        // Şirketin depolarını da görmek isterseniz:
         public ICollection<Warehouse> Warehouses { get; set; }
 
     }

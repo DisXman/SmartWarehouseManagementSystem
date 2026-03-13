@@ -14,14 +14,11 @@ namespace SmartWarehouse.API.Controllers
             _dashboardManager = dashboardManager;
         }
 
-        // Frontend'den gelen isteği karşılayan metod
         [HttpGet("summary/{companyId}")]
         public async Task<IActionResult> GetSummary(string companyId)
         {
-            // Manager'daki metodunu çağırıyoruz
             var result = await _dashboardManager.GetCompanySummaryAsync(companyId);
 
-            // Dökümanda istenen success/data formatında dönüyoruz
             return Ok(new { success = true, data = result });
         }
     }

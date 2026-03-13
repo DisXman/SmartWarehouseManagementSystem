@@ -14,18 +14,16 @@ namespace SmartWarehouse.API.Managers
 
         public async Task<object> GetCompanySummaryAsync(string companyId)
         {
-            // Veritabanına tek bir filtre ile gidiyoruz
             var query = _context.Products
                 .Where(p => p.CompanyId == companyId && !p.IsDeleted);
 
-            // Tüm hesaplamaları tek bir hamlede yapıyoruz
+            
             var summaryData = await query
-                .GroupBy(x => 1) // Tek bir grup oluşturup tüm veriyi toplamak için
+                .GroupBy(x => 1)
                 .Select(g => new
                 {
                     TotalProductTypes = g.Count(),
                     TotalStockQuantity = g.Sum(p => p.Quantity),
-                    // Birim fiyat * Adet = Toplam Depo Değeri
                     TotalPriceSum = g.Sum(p => p.Price * p.Quantity)
                 })
                 .FirstOrDefaultAsync();
